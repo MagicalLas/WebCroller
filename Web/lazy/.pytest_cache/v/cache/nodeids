@@ -1,0 +1,6 @@
+[
+  "test_lazy_effect.py::test_lazy_sum",
+  "test_lazy_effect.py::test_lazy_maps",
+  "test_lazy_effect.py::test_lazy_one_multiplex",
+  "test_lazy_print.py::test_lazy_print"
+]
