@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>WebCroller</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        label {
+            display: block;
+            font: 1rem 'Fira Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <label>
+        블로그 첫 아티클 링크를 넣어주세요.
+    </label>
+    <input type="text" id="name" name="name" required minlength="4" maxlength="60" size="60">
+    <input type="text" id="no" name="name" required minlength="4" maxlength="60" size="60" placeholder="총 포스트 갯수">
+    <input type="button" id="button1" onclick="button1_click();" value="Start Croller!" />
+    <script>
+        function button1_click() {
+            let url = document.getElementById("name").value;
+            let blog_id = url.split("/")[3];
+            let nobel_id = url.split("/")[4];
+            let no =  document.getElementById("no").value;
+            location.href = "./nobel/" + blog_id + "/" + nobel_id + "/" + no;
+        }
+    </script>
+</body>
+
+</html>
