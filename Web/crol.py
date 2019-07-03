@@ -14,6 +14,7 @@ options.add_argument("disable-gpu")
 def get_right_nobel(article):
     if article.is_exist:
         article.now = article.no
+        print("Is Exise Novel Type")
         return
     driver = webdriver.Chrome(driver_Path, chrome_options=options)
     driver.implicitly_wait(2)
