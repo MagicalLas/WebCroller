@@ -48,14 +48,17 @@ async def feed(request, ws):
     t = threading.Thread(
         target=lambda: get_right_nobel(progress_table[article]))
     t.start()
-    while True:
-        if progress_table[article].progress == 100:
-            await ws.send(progress_table[article].now_state)
-            break
-        await ws.send(progress_table[article].now_state)
-        await ws.recv()
-        print(f"ws: {progress_table[article].now_state}")
-        sleep(3)
+
+    def a():
+        while True:
+            if progress_table[article].progress == 100:
+                ws.send(progress_table[article].now_state)
+                break
+            ws.send(progress_table[article].now_state)
+            print(f"ws: {progress_table[article].now_state}")
+            sleep(3)
+    f = threading.Thread(target=a)
+    f.start()
 
 
 @EfApp
