@@ -1,4 +1,5 @@
 import json
+import os.path
 
 class Article(object):
 
@@ -20,3 +21,7 @@ class Article(object):
     @property
     def link(self):
         return f"{self.name}.txt"
+    
+    @property
+    def is_exist(self):
+        return os.path.isfile(f"./static/{self.link}") 
