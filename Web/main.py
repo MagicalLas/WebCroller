@@ -3,6 +3,7 @@ from sanic.response import html
 from lazy.ef_app import EfApp
 from lazy.effect import lazy
 from article import Article
+from sanic.websocket import WebSocketProtocol
 from time import sleep
 import asyncio
 import threading
@@ -40,7 +41,7 @@ async def nobel(req, blog, article, no):
     ws = ws_page.replace("HASHDATA", article.name)
     return html(ws)
 
-
+@app.websocket("/feed")
 async def feed(request, ws):
     print("NEW WEBSOCKET")
     article = await ws.recv()
@@ -59,7 +60,6 @@ async def feed(request, ws):
 @EfApp
 def main():
     route('/', home)
-    app.add_websocket_route(feed, '/feed')
     app.static('/static', './static', content_type='text/plain; charset=utf-8; filename=temp.txt')
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8000, protocol=WebSocketProtocol)
     return
