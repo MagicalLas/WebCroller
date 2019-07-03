@@ -53,6 +53,7 @@ async def feed(request, ws):
             await ws.send(progress_table[article].now_state)
             break
         await ws.send(progress_table[article].now_state)
+        await ws.recv()
         print(f"ws: {progress_table[article].now_state}")
         sleep(3)
 
