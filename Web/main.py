@@ -26,6 +26,7 @@ ws_page += ""
 
 progress_table = {}
 
+
 @lazy
 def home(req):
     return html(main_page)
@@ -35,25 +36,29 @@ def home(req):
 async def nobel(req, blog, article, no):
     article = Article(blog, article, no)
     progress_table[article.name] = article
-    
+
     ws = ws_page.replace("HASHDATA", article.name)
     return html(ws)
 
 
 @app.websocket('/feed')
 async def feed(request, ws):
+    print("NEW WEBSOCKET")
     article = await ws.recv()
-    t = threading.Thread(target=lambda: get_right_nobel(progress_table[article]))
+    t = threading.Thread(
+        target=lambda: get_right_nobel(progress_table[article]))
     t.start()
     while True:
         await ws.send(progress_table[article].now_state)
+        print(f"ws: {progress_table[article]}")
         sleep(3)
         if progress_table[article].now_state == 100:
             break
 
+
 @EfApp
 def main():
     route('/', home)
-    app.static('/static', './static', content_type='text/html; charset=utf-8')
+    app.static('/static', './static', content_type='text/plain; charset=utf-8; filename=temp.txt')
     app.run(host="0.0.0.0", port=8000)
     return

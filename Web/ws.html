@@ -9,21 +9,25 @@
 </head>
 
 <body>
-    <script>
-        var socket = new WebSocket("ws://localhost:8000/feed");
-        socket.onopen = function (event) {
-            socket.send("HASHDATA");
-        };
-        socket.onmessage = function (event) {
-            let msg = JSON.parse(event.data);
-            console.log(msg.progress)
-            if (msg.progress == '100') {
-                console.log(msg.link);
-                socket.close();
-            }
-        }
-
-    </script>
 </body>
+<div id="vue">
+    0%
+</div>
+<script>
+    var vue = document.getElementById("vue");
+    var socket = new WebSocket("ws://"+window.location.hostname+":8000/feed");
+    socket.onopen = function (event) {
+        socket.send("HASHDATA");
+    };
+    socket.onmessage = function (event) {
+        let msg = JSON.parse(event.data);
+        vue.innerHTML = msg.progress + "%";
+        console.log(msg.progress)
+        if (msg.progress == '100') {
+            vue.innerHTML = "<a href='../../../static/" + msg.link + "' download> download </a> 잠시 기다리면 다운로드가 시작됩니다. 최대 5분."
+            socket.close();
+        }
+    }
+</script>
 
 </html>

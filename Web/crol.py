@@ -3,11 +3,19 @@ from time import sleep
 import asyncio
 
 driver_Path = "./chromedriver.exe"
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument('window-size=1920x1080')
+options.add_argument("disable-gpu")
 
 
 def get_right_nobel(article):
-    driver = webdriver.Chrome(driver_Path)
-    driver.implicitly_wait(3)
+    if article.is_exist:
+        article.now = article.no
+        return
+    driver = webdriver.Chrome(chrome_options=options)
+    driver.implicitly_wait(2)
+
     link = f"https://m.blog.naver.com/{article.blog}/{article.first}"
     driver.get(link)
     make_text(driver, article)
