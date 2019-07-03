@@ -2,7 +2,7 @@ from selenium import webdriver
 from time import sleep
 import asyncio
 
-driver_Path = "../../chromedriver.exe"
+driver_Path = "../../chromedriver"
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
 options.add_argument('window-size=1920x1080')
