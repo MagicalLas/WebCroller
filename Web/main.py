@@ -50,12 +50,13 @@ async def feed(request, ws):
     t.start()
 
     while True:
+        await ws.send(progress_table[article].now_state)
+        print(f"ws: {progress_table[article].now_state}")
+        print(await ws.recv())
         if progress_table[article].progress == 100:
             await ws.send(progress_table[article].now_state)
             break
-        await ws.send(progress_table[article].now_state)
-        print(f"ws: {progress_table[article].now_state}")
-        sleep(3)
+        sleep(1)
 
 
 @EfApp

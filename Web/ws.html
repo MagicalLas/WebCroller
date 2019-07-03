@@ -24,6 +24,8 @@
         console.log("error");
     }
     socket.onmessage = function (event) {
+        console.log("GET DATA");
+        socket.send("good");
         let msg = JSON.parse(event.data);
         vue.innerHTML = msg.progress + "%";
         console.log(msg.progress);
