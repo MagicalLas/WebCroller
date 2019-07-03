@@ -13,7 +13,7 @@ def get_right_nobel(article):
     if article.is_exist:
         article.now = article.no
         return
-    driver = webdriver.Chrome(chrome_options=options)
+    driver = webdriver.Chrome(driver_Path, chrome_options=options)
     driver.implicitly_wait(2)
 
     link = f"https://m.blog.naver.com/{article.blog}/{article.first}"
