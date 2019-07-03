@@ -50,7 +50,7 @@ async def feed(request, ws):
     t.start()
     while True:
         await ws.send(progress_table[article].now_state)
-        print(f"ws: {progress_table[article]}")
+        print(f"ws: {progress_table[article].now_state}")
         sleep(3)
         if progress_table[article].now_state == 100:
             break
