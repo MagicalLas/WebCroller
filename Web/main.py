@@ -49,11 +49,12 @@ async def feed(request, ws):
         target=lambda: get_right_nobel(progress_table[article]))
     t.start()
     while True:
+        if progress_table[article].progress == 100:
+            await ws.send(progress_table[article].now_state)
+            break
         await ws.send(progress_table[article].now_state)
         print(f"ws: {progress_table[article].now_state}")
         sleep(3)
-        if progress_table[article].progress == 100:
-            break
 
 
 @EfApp
