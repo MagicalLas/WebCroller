@@ -41,7 +41,6 @@ async def nobel(req, blog, article, no):
     return html(ws)
 
 
-@app.websocket('/feed')
 async def feed(request, ws):
     print("NEW WEBSOCKET")
     article = await ws.recv()
@@ -60,6 +59,7 @@ async def feed(request, ws):
 @EfApp
 def main():
     route('/', home)
+    app.add_websocket_route(feed, '/feed')
     app.static('/static', './static', content_type='text/plain; charset=utf-8; filename=temp.txt')
     app.run(host="0.0.0.0", port=8000)
     return
